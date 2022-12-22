@@ -24,13 +24,17 @@ function amountFor(aPerformance, play) {
     return result
 }
 
-function statement(invoice, plays) {
+function playFor(aPerformance) {
+    return plays[aPerformance.playID]
+}
+
+function statement(invoice) {
     let totalAmount = 0;
     let volumeCredits = 0;
     let result = `Statement for ${invoice.customer}\n`;
     const format = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }).format;
     for (let perf of invoice.performances) {
-        const play = plays[perf.playID];
+        const play = playFor(perf)
         let thisAmount = amountFor(perf, play)
         // add volume credits 
         volumeCredits += Math.max(perf.audience - 30, 0);
