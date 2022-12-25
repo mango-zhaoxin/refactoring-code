@@ -1,9 +1,9 @@
 const invoice = require('./invoice.json'); // 发票、账单
 const plays = require('./plays.json'); // 剧目的数据
 
-function amountFor(aPerformance, play) {
+function amountFor(aPerformance) {
     let result = 0;
-    switch (play.type) {
+    switch (playFor(aPerformance).type) {
         case "tragedy":
             result = 40000;
             if (aPerformance.audience > 30) {
@@ -18,7 +18,7 @@ function amountFor(aPerformance, play) {
             result += 300 * aPerformance.audience;
             break;
         default:
-            throw new Error(`unknown type: ${play.type}`);
+            throw new Error(`unknown type: ${playFor(aPerformance).type}`);
     }
     // 永远将函数的返回值命名为 result
     return result
